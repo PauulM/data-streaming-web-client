@@ -1,0 +1,10 @@
+#tomcat port
+server.port=
+
+api.domain=
+api.port=
+api.prefix=
+api.scheme=
+client.name=
+client.secret=
+client.token-endpoint=
