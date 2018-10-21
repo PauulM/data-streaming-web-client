@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LoginController {
@@ -23,9 +25,15 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginPost(@ModelAttribute UserWebDTO userWebDTO, Model model){
-        TokenDTO tokenDTO = tokenConsumer.queryForToken(userWebDTO.getUserName(), userWebDTO.getPassword(), "password");
-        model.addAttribute("tokenDTO", tokenDTO);
-        return "success";
+    public String loginPost(@ModelAttribute UserWebDTO userWebDTO, Model model, RedirectAttributes redirectAttributes){
+        try {
+            TokenDTO tokenDTO = tokenConsumer.queryForToken(userWebDTO.getUserName(), userWebDTO.getPassword(), "password");
+            model.addAttribute("tokenDTO", tokenDTO);
+            return "success";
+        }
+        catch (HttpClientErrorException ex){
+            redirectAttributes.addFlashAttribute("errorMessage","Login or password is incorrect");
+            return "redirect:/login";
+        }
     }
 }

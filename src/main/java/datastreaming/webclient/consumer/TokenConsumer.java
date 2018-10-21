@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -26,7 +27,8 @@ public class TokenConsumer {
                 buildBasicAuthorizationHeaders());
 
         RestTemplate restTemplate = new RestTemplate();
-        TokenDTO token = restTemplate.exchange(buildTokenUriString(), HttpMethod.POST, request, TokenDTO.class).getBody();
+        ResponseEntity<TokenDTO> responseEntity = restTemplate.exchange(buildTokenUriString(), HttpMethod.POST, request, TokenDTO.class);
+        TokenDTO token = responseEntity.getBody();
         token.calculateExpirationDate();
         return token;
     }
