@@ -2,17 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Sign in</title>
     <div th:replace="sources :: sources"></div>
 </head>
 <body>
-    <div th:if="${errorMessage} != null">
-        <p class="alert alert-danger" th:text="${errorMessage}"></p>
+<div class="row justify-content-center mt-5">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header"><h2>Sign in</h2></div>
+            <div class="card-block mt-2 p-4">
+                <div th:if="${errorMessage} != null">
+                    <p class="alert alert-danger" th:text="${errorMessage}"></p>
+                </div>
+                <div>
+                    <form method="post" action="/#" th:action="@{/login}" th:object="${userWebDTO}">
+                        <div class="form-group row">
+                            <label class="col-form-label col-2">Login</label>
+                            <div class="col-9"><input class="form-control" type="text" th:field="*{userName}"/></div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-2">Password</label>
+                            <div class="col-9"><input class="form-control" type="password" th:field="*{password}"/></div>
+                        </div>
+                        <div class="form-group"><input type="submit" value="Sign in" class="btn btn-success"/></div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <form method="post" action="/#" th:action="@{/login}" th:object="${userWebDTO}">
-        <p>Login: <input type="text" th:field="*{userName}"/></p>
-        <p>Password: <input type="password" th:field="*{password}"/></p>
-        <p><input type="submit" value="Submit"/></p>
-    </form>
+</div>
 </body>
 </html>
