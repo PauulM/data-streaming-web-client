@@ -8,5 +8,8 @@
 Success!
 Token is:
 <div th:text="${tokenDTO.token}"></div>
+<form method="post" action="/#" th:action="@{/logout}">
+    <input type="submit" value="Sign out"/>
+</form>
 </body>
 </html>
