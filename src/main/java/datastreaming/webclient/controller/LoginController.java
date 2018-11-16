@@ -3,6 +3,7 @@ package datastreaming.webclient.controller;
 import datastreaming.webclient.consumer.TokenConsumer;
 import datastreaming.webclient.dto.api.TokenDTO;
 import datastreaming.webclient.dto.web.UserWebDTO;
+import datastreaming.webclient.misc.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -28,7 +30,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginPost(@ModelAttribute UserWebDTO userWebDTO, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request){
+    public String loginPost(@ModelAttribute UserWebDTO userWebDTO, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response){
         try {
             TokenDTO tokenDTO = tokenConsumer.queryForToken(userWebDTO.getUserName(), userWebDTO.getPassword(), "password");
             model.addAttribute("tokenDTO", tokenDTO);
@@ -36,7 +38,7 @@ public class LoginController {
             return "success";
         }
         catch (HttpClientErrorException ex){
-            redirectAttributes.addFlashAttribute("errorMessage","Login or password is incorrect");
+            redirectAttributes.addFlashAttribute("message",new Message("Login or password is incorrect", Message.Type.ERROR));
             return "redirect:/login";
         }
     }

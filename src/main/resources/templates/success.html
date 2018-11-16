@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Success</title>
 </head>
 <body>
+<div th:replace="navbar :: navbar"></div>
 Success!
 Token is:
 <div th:text="${tokenDTO.token}"></div>

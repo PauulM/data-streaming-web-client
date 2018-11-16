@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand h1">Navbar</span>
+    </nav>
+    <div class="row">
+        <div class="col-6 offset-3" th:if="${message}">
+            <div th:class="'alert alert-' + ${message.type}" th:text="${message.text}">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
