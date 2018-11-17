@@ -15,7 +15,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null || session.getAttribute("token") == null){
+        if(session.getAttribute("username") == null || session.getAttribute("token") == null){
             addFlashMessage(new Message("Please sign in before continue", Message.Type.ERROR), request, response);
             response.sendRedirect("/login");
             return false;

@@ -14,7 +14,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -30,12 +29,13 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginPost(@ModelAttribute UserWebDTO userWebDTO, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response){
+    public String loginPost(@ModelAttribute UserWebDTO userWebDTO, Model model, RedirectAttributes redirectAttributes,HttpServletRequest request){
         try {
             TokenDTO tokenDTO = tokenConsumer.queryForToken(userWebDTO.getUserName(), userWebDTO.getPassword(), "password");
             model.addAttribute("tokenDTO", tokenDTO);
+            redirectAttributes.addFlashAttribute("tokenDTO", tokenDTO);
             registerToken(request.getSession(), userWebDTO.getUserName(), tokenDTO.getToken());
-            return "success";
+            return "redirect:/success";
         }
         catch (HttpClientErrorException ex){
             redirectAttributes.addFlashAttribute("message",new Message("Login or password is incorrect", Message.Type.ERROR));
@@ -51,11 +51,18 @@ public class LoginController {
     @PostMapping("/logout")
     public String logoutPost(RedirectAttributes redirectAttributes, HttpServletRequest request){
         deregisterToken(request.getSession());
-        return "welcome";
+        redirectAttributes.addFlashAttribute("message", new Message("Successfully signed out", Message.Type.SUCCESS));
+        return "redirect:/";
     }
 
     private void deregisterToken(HttpSession session){
         session.removeAttribute("username");
         session.removeAttribute("token");
+    }
+
+    @GetMapping("/success")
+    public String homePageGet(Model model, @ModelAttribute("tokenDTO") TokenDTO tokenDTO){
+        model.addAttribute("tokenDTO", tokenDTO);
+        return "success";
     }
 }

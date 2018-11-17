@@ -5,9 +5,33 @@
     <title>Navbar</title>
 </head>
 <body>
-<div th:fragment="navbar">
-    <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand h1">Navbar</span>
+<div th:fragment="navbar_unauth">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">NavbarU</a>
+        <div class="collapse navbar-collapse">
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="#" th:href="@{/login}"><ion-icon size="large" name="ios-log-in"></ion-icon></a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-6 offset-3" th:if="${message}">
+            <div th:class="'alert alert-' + ${message.type}" th:text="${message.text}">
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="navbar_auth">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">NavbarA</a>
+        <div class="collapse navbar-collapse">
+            <div class="navbar-nav ml-auto">
+                <form class="form-inline" method="post" th:action="@{/logout}">
+                    <button class="btn nav-item nav-link" style="background-color: transparent" type="submit"><ion-icon size="large" name="ios-log-out"></ion-icon></button>
+
+                </form>
+            </div>
+        </div>
     </nav>
     <div class="row">
         <div class="col-6 offset-3" th:if="${message}">

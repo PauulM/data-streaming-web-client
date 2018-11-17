@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Success</title>
+    <div th:replace="sources :: sources"></div>
 </head>
 <body>
-<div th:replace="navbar :: navbar"></div>
+<div th:replace="navbar :: navbar_auth"></div>
 Success!
 Token is:
 <div th:text="${tokenDTO.token}"></div>
 <form method="post" action="/#" th:action="@{/logout}">
     <input type="submit" value="Sign out"/>
 </form>
+<div th:replace="footer :: footer"></div>
 </body>
 </html>
