@@ -10,23 +10,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Base64;
 
 @Component
-public class TokenConsumer {
+public class TokenConsumer extends AbstractApiConsumer{
 
-    @Autowired
-    private ApplicationPropertiesUtil applicationPropertiesUtil;
+    public TokenConsumer(ApplicationPropertiesUtil applicationPropertiesUtil) {
+        super(applicationPropertiesUtil);
+    }
 
     public TokenDTO queryForToken(String userName, String password, String grantType){
         HttpEntity<?> request = new HttpEntity<Object>(buildBodyParametersMap(userName,password,grantType),
                 buildBasicAuthorizationHeaders());
-
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<TokenDTO> responseEntity = restTemplate.exchange(buildTokenUriString(), HttpMethod.POST, request, TokenDTO.class);
         TokenDTO token = responseEntity.getBody();
         token.calculateExpirationDate();

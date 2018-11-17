@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Success</title>
+    <title>Results</title>
     <div th:replace="sources :: sources"></div>
 </head>
 <body>
 <div th:replace="navbar :: navbar_auth"></div>
-Success!
+<div th:each="song, index : ${songs}">
+    <div th:text="${song.id}"></div>
+</div>
 <div th:replace="footer :: footer"></div>
 </body>
 </html>

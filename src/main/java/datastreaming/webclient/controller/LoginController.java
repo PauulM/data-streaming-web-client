@@ -33,7 +33,7 @@ public class LoginController {
         try {
             TokenDTO tokenDTO = tokenConsumer.queryForToken(userWebDTO.getUserName(), userWebDTO.getPassword(), "password");
             model.addAttribute("tokenDTO", tokenDTO);
-            redirectAttributes.addFlashAttribute("tokenDTO", tokenDTO);
+            redirectAttributes.addFlashAttribute("userName", userWebDTO.getUserName());
             registerToken(request.getSession(), userWebDTO.getUserName(), tokenDTO.getToken());
             return "redirect:/success";
         }
@@ -43,8 +43,8 @@ public class LoginController {
         }
     }
 
-    private void registerToken(HttpSession session, String username, String token){
-        session.setAttribute("username", username);
+    private void registerToken(HttpSession session, String userName, String token){
+        session.setAttribute("userName", userName);
         session.setAttribute("token", token);
     }
 
@@ -56,13 +56,12 @@ public class LoginController {
     }
 
     private void deregisterToken(HttpSession session){
-        session.removeAttribute("username");
+        session.removeAttribute("userName");
         session.removeAttribute("token");
     }
 
     @GetMapping("/success")
-    public String homePageGet(Model model, @ModelAttribute("tokenDTO") TokenDTO tokenDTO){
-        model.addAttribute("tokenDTO", tokenDTO);
+    public String homePageGet(){
         return "success";
     }
 }

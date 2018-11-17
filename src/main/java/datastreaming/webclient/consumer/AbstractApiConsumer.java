@@ -2,29 +2,43 @@ package datastreaming.webclient.consumer;
 
 import datastreaming.webclient.misc.ApplicationPropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Component
 public abstract class AbstractApiConsumer {
 
-    @Autowired
-    private ApplicationPropertiesUtil applicationPropertiesUtil;
+    protected ApplicationPropertiesUtil applicationPropertiesUtil;
 
     protected RestTemplate restTemplate;
 
-    protected UriBuilder uriBuilder;
+    protected String baseUri;
 
-    public AbstractApiConsumer() {
+    @Autowired
+    public AbstractApiConsumer(ApplicationPropertiesUtil applicationPropertiesUtil) {
+        this.applicationPropertiesUtil = applicationPropertiesUtil;
         restTemplate = new RestTemplate();
-        uriBuilder = prepareUriBuilder();
+        baseUri = prepareUriBuilder();
     }
 
-    private UriBuilder prepareUriBuilder(){
+    private String prepareUriBuilder(){
         return UriComponentsBuilder.newInstance()
                 .scheme(applicationPropertiesUtil.getApiScheme())
                 .host(applicationPropertiesUtil.getApiDomain())
                 .port(applicationPropertiesUtil.getApiPort())
-                .path(applicationPropertiesUtil.getApiPrefix());
+                .path(applicationPropertiesUtil.getApiPrefix())
+                .build()
+                .toUriString();
     }
+
+    protected HttpHeaders buildBearerTokenAuthorizationHeader(String token){
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + token);
+        return headers;
+    }
+
 }
