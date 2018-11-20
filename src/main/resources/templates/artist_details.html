@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+    <div th:replace="sources :: sources"></div>
+</head>
+<body>
+<div th:replace="navbar :: navbar_auth"></div>
+<div class="container-fluid">
+    <div class="row p-1">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-body row">
+                    <div class="col-4">
+                        <img src="#" th:src="${artist.image}" th:alt="${artist.name}" alt="img"/>
+                    </div>
+                    <div class="col-8">
+                        <h1 th:text="${artist.name}"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 offset-4 p-3">
+        <h4>ALBUMS</h4>
+    </div>
+    <div th:each="album : ${artistAlbums}" class="p-1">
+        <div class="col-6 offset-3">
+            <a href="#" th:href="@{'/album?id=' + ${album.id}}" class="list-group-item-action">
+                <div class="card list-group-item list-group-item-action">
+                    <div class="card-body row">
+                        <div class="col-4">
+                            <img src="#" th:src="${album.image}" th:alt="${album.name}" alt="img"/>
+                        </div>
+                        <div class="col-8">
+                            <small th:text="${album.albumYear}"></small>
+                            <h3 th:text="${album.name}"></h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
+</body>
+</html>

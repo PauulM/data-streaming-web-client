@@ -2,7 +2,7 @@ package datastreaming.webclient.dto.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AlbumDTO {
+public class AlbumDTO implements Comparable<AlbumDTO>{
 
     private Long id;
 
@@ -16,6 +16,11 @@ public class AlbumDTO {
     private String publisher;
 
     private String image;
+
+    @Override
+    public int compareTo(AlbumDTO o) {
+        return albumYear.compareTo(o.albumYear);
+    }
 
     public Long getId() {
         return id;
