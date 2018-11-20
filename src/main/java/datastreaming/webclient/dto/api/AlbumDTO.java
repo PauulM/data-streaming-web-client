@@ -1,16 +1,21 @@
 package datastreaming.webclient.dto.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AlbumDTO {
 
     private Long id;
 
-    private Long artistId;
+    @JsonProperty("artist")
+    private ArtistDTO artistDTO;
 
     private String name;
 
     private String albumYear;
 
-    private  String publisher;
+    private String publisher;
+
+    private String image;
 
     public Long getId() {
         return id;
@@ -20,12 +25,12 @@ public class AlbumDTO {
         this.id = id;
     }
 
-    public Long getArtistId() {
-        return artistId;
+    public ArtistDTO getArtistDTO() {
+        return artistDTO;
     }
 
-    public void setArtistId(Long artistId) {
-        this.artistId = artistId;
+    public void setArtistDTO(ArtistDTO artistDTO) {
+        this.artistDTO = artistDTO;
     }
 
     public String getName() {
@@ -52,4 +57,11 @@ public class AlbumDTO {
         this.publisher = publisher;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

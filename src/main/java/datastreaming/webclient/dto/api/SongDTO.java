@@ -1,11 +1,15 @@
 package datastreaming.webclient.dto.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 
 public class SongDTO {
+
     private Long id;
 
-    private Long albumId;
+    @JsonProperty("album")
+    private AlbumDTO albumDTO;
 
     private String name;
 
@@ -29,12 +33,12 @@ public class SongDTO {
         this.id = id;
     }
 
-    public Long getAlbumId() {
-        return albumId;
+    public AlbumDTO getAlbumDTO() {
+        return albumDTO;
     }
 
-    public void setAlbumId(Long albumId) {
-        this.albumId = albumId;
+    public void setAlbumDTO(AlbumDTO albumDTO) {
+        this.albumDTO = albumDTO;
     }
 
     public String getName() {

@@ -1,4 +1,4 @@
-package datastreaming.webclient.dto.web;
+package datastreaming.webclient.dto.webinput;
 
 public class UserWebDTO {
 

@@ -19,6 +19,8 @@ public class SearchController {
     public String searchEverything(@RequestParam(value = "query") String query, Model model, HttpServletRequest request){
         String token = (String) request.getSession().getAttribute("token");
         model.addAttribute("songs", searchConsumer.searchSongs(token, query));
+        model.addAttribute("albums", searchConsumer.searchAlbums(token, query));
+        model.addAttribute("artists", searchConsumer.searchArtists(token, query));
         return "search_results";
     }
 }

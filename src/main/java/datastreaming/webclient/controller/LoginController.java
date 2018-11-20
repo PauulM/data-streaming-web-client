@@ -2,7 +2,7 @@ package datastreaming.webclient.controller;
 
 import datastreaming.webclient.consumer.TokenConsumer;
 import datastreaming.webclient.dto.api.TokenDTO;
-import datastreaming.webclient.dto.web.UserWebDTO;
+import datastreaming.webclient.dto.webinput.UserWebDTO;
 import datastreaming.webclient.misc.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -7,8 +7,88 @@
 </head>
 <body>
 <div th:replace="navbar :: navbar_auth"></div>
-<div th:each="song, index : ${songs}">
-    <div th:text="${song.id}"></div>
+<div class="container-fluid row">
+    <div class="col-1"></div>
+    <div class="col-4 border-right">
+        <div class="text-center">
+            <h3>Songs</h3>
+        </div>
+        <div class="list-group">
+            <div th:each="song : ${songs}">
+                <a href="#" th:href="@{'/song?id=' + ${song.id}}"
+                   class="list-group-item list-group-item-action align-items-start">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1" th:text="${song.name}">song title</h5>
+                            </div>
+                            <div>
+                                <small class="mb-1" th:text="${song.albumDTO.name + ', ' + song.albumDTO.albumYear}">
+                                    album
+                                </small>
+                            </div>
+                            <div>
+                                <small class="mb-1" th:text="${song.albumDTO.artistDTO.name}">artist</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <img th:src="${song.albumDTO.image}" th:alt="${song.albumDTO.name}" alt="img">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 border-right">
+        <div class="text-center">
+            <h3>Albums</h3>
+        </div>
+        <div class="list-group">
+            <div th:each="album : ${albums}">
+                <a href="#" th:href="@{'/album?id=' + ${album.id}}"
+                   class="list-group-item list-group-item-action align-items-start">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1" th:text="${album.name}">album title</h5>
+                            </div>
+                            <div>
+                                <small class="mb-1" th:text="${album.artistDTO.name}">artist</small>
+                            </div>
+                            <div>
+                                <small class="mb-1" th:text="${album.albumYear}">year</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <img th:src="${album.image}" th:alt="${album.name}" alt="img">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 border-right">
+        <div class="text-center">
+            <h3>Artists</h3>
+        </div>
+        <div class="list-group">
+            <div th:each="artist : ${artists}">
+                <a href="#" th:href="@{'/artist?id=' + ${artist.id}}"
+                   class="list-group-item list-group-item-action align-items-start">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1" th:text="${artist.name}">artist name</h5>
+                            </div>
+                        </div>
+                        <div th:if="${!artist.image.isEmpty()}" class="col-4">
+                            <img th:src="${album.image}" th:alt="${album.name}" alt="img">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 <div th:replace="footer :: footer"></div>
 </body>
