@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="sources :: sources"></div>
+    <title th:text="${album.name}">Album</title>
+</head>
+<body>
+<div th:replace="navbar :: navbar_auth"></div>
+<div class="container-fluid">
+    <div class="row p-1">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="#" th:src="${album.image}" th:alt="${album.name}" alt="img"/>
+                        </div>
+                        <div class="col-8">
+                            <small th:text="${album.albumYear}"></small>
+                            <h3 th:text="${album.name}"></h3>
+                        </div>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col"><ion-icon name="ios-time"></ion-icon></th>
+                                <th scope="col"><ion-icon name="ios-flag"></ion-icon></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="song : ${albumSongs}">
+                                <td th:text="${song.songNo}" class="align-middle"></td>
+                                <td th:text="${song.name}" class="align-middle"></td>
+                                <td th:text="${song.length}" class="align-middle"></td>
+                                <td class="align-middle">
+                                    <a href="#" th:href="@{'/song?id=' + ${song.id}}" class="text-dark">
+                                        <ion-icon size="large" name="ios-play-circle"></ion-icon>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
+</body>
+</html>

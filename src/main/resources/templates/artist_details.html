@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Results</title>
     <div th:replace="sources :: sources"></div>
+    <title th:text="${artist.name}">Artist</title>
 </head>
 <body>
 <div th:replace="navbar :: navbar_auth"></div>

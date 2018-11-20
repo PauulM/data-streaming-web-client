@@ -20,7 +20,7 @@ public class ArtistController {
         this.artistConsumer = artistConsumer;
     }
 
-    @GetMapping
+    @GetMapping("/artist")
     public String artistDetailsGet(@RequestParam("id") Long artistId, Model model, HttpServletRequest request){
         String token = (String) request.getSession().getAttribute("token");
         model.addAttribute("artist", artistConsumer.getArtistById(token, artistId));
