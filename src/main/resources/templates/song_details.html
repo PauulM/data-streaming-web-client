@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="sources :: sources"></div>
+    <title th:text="${song.name}">Song</title>
+</head>
+<body>
+<div th:replace="navbar :: navbar_auth"></div>
+<div class="container-fluid p-2">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row border-bottom p-4">
+                        <div class="col-4">
+                            <img src="#" th:src="${song.albumDTO.image}" th:alt="${song.albumDTO.name}" alt="img"/>
+                        </div>
+                        <div class="col-8">
+                            <h1 th:text="${song.name}"></h1>
+                            <small th:text="${song.albumDTO.artistDTO.name}"
+                                   th:href="@{'/artist?id=' + ${song.albumDTO.artistDTO.id}}"></small>
+                            <small th:text="${song.albumDTO.albumYear} + ', ' + ${song.length}"></small>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <audio id="player" controls></audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
+</body>
+</html>
