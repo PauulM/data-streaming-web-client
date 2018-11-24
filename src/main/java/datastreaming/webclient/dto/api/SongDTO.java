@@ -13,8 +13,6 @@ public class SongDTO {
 
     private String name;
 
-    private String filePath;
-
     private Integer songNo;
 
     private String length;
@@ -47,14 +45,6 @@ public class SongDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
     }
 
     public Integer getSongNo() {

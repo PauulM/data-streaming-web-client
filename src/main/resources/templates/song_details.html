@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest" xmlns:th="http://www.w3.org/1999/xhtml"></script>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -33,4 +34,17 @@
 </div>
 <div th:replace="footer :: footer"></div>
 </body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    if (Hls.isSupported()) {
+        var manifestUri = /*[[${songManifestUri}]]*/ '';
+        var player = document.getElementById('player');
+        var hls = new Hls();
+        hls.attachMedia(player);
+        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+            hls.loadSource(manifestUri);
+        });
+    }
+    /*]]>*/
+</script>
 </html>

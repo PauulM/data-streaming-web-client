@@ -12,11 +12,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public abstract class AbstractApiConsumer {
 
-    protected ApplicationPropertiesUtil applicationPropertiesUtil;
+    protected final ApplicationPropertiesUtil applicationPropertiesUtil;
 
-    protected RestTemplate restTemplate;
+    protected final RestTemplate restTemplate;
 
-    protected String baseUri;
+    protected final String baseUri;
 
     @Autowired
     public AbstractApiConsumer(ApplicationPropertiesUtil applicationPropertiesUtil) {
