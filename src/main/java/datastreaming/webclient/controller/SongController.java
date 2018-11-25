@@ -28,6 +28,7 @@ public class SongController {
         String token = (String) request.getSession().getAttribute("token");
         model.addAttribute("song",songConsumer.getSongById(token, songId));
         model.addAttribute("songManifestUri", streamingConsumer.buildSongManifestUri(songId));
+        model.addAttribute("token", token);
         return "song_details";
     }
 
