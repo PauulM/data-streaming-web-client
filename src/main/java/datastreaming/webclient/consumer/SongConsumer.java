@@ -17,7 +17,7 @@ public class SongConsumer extends AbstractApiConsumer {
     public SongDTO getSongById(String token, Long id){
         HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
         ResponseEntity<SongDTO> responseEntity = restTemplate.exchange(
-                baseUri + "/api/song/" + id,
+                baseUri + "/api/songs/" + id,
                 HttpMethod.GET, request, SongDTO.class);
         return responseEntity.getBody();
     }

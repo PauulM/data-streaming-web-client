@@ -22,7 +22,7 @@ public class AlbumConsumer extends AbstractApiConsumer{
     public AlbumDTO getAlbumById(String token, Long id){
         HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
         ResponseEntity<AlbumDTO> responseEntity = restTemplate.exchange(
-                baseUri + "/api/album/" + id,
+                baseUri + "/api/albums/" + id,
                 HttpMethod.GET, request, AlbumDTO.class);
         return responseEntity.getBody();
     }
@@ -30,7 +30,7 @@ public class AlbumConsumer extends AbstractApiConsumer{
     public List<SongDTO> getAlbumSongs(String token, Long albumId){
         HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
         ResponseEntity<SongDTO[]> responseEntity = restTemplate.exchange(
-                baseUri + "/api/album/" + albumId + "/songs",
+                baseUri + "/api/albums/" + albumId + "/songs",
                 HttpMethod.GET, request, SongDTO[].class);
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
     }

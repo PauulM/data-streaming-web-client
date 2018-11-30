@@ -24,7 +24,7 @@ public class SearchConsumer extends AbstractApiConsumer {
     public List<SongDTO> searchSongs(String token, String query){
         HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
         ResponseEntity<SongDTO[]> responseEntity = restTemplate.exchange(
-                baseUri + "/api/song/search?query=" + query,
+                baseUri + "/api/songs/search?query=" + query,
                 HttpMethod.GET, request, SongDTO[].class);
         return multiplyElementsInList(Arrays.asList(responseEntity.getBody()),20);
         //return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
@@ -33,7 +33,7 @@ public class SearchConsumer extends AbstractApiConsumer {
     public List<AlbumDTO> searchAlbums(String token, String query){
         HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
         ResponseEntity<AlbumDTO[]> responseEntity = restTemplate.exchange(
-                baseUri + "/api/album/search?query=" + query,
+                baseUri + "/api/albums/search?query=" + query,
                 HttpMethod.GET, request, AlbumDTO[].class);
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
     }
@@ -41,7 +41,7 @@ public class SearchConsumer extends AbstractApiConsumer {
     public List<ArtistDTO> searchArtists(String token, String query){
         HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
         ResponseEntity<ArtistDTO[]> responseEntity = restTemplate.exchange(
-                baseUri + "/api/artist/search?query=" + query,
+                baseUri + "/api/artists/search?query=" + query,
                 HttpMethod.GET, request, ArtistDTO[].class);
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
     }
