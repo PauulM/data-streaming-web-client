@@ -15,7 +15,7 @@ public class AlbumDTO implements Comparable<AlbumDTO>{
 
     private String publisher;
 
-    private String image;
+    private String imageEncoded;
 
     @Override
     public int compareTo(AlbumDTO o) {
@@ -62,11 +62,11 @@ public class AlbumDTO implements Comparable<AlbumDTO>{
         this.publisher = publisher;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageEncoded() {
+        return imageEncoded;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageEncoded(String imageEncoded) {
+        this.imageEncoded = imageEncoded;
     }
 }

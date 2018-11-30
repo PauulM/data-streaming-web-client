@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <img src="#" th:src="${album.image}" th:alt="${album.name}" alt="img"/>
+                            <img src="#" th:src="*{'data:image/jpg;base64,' + album.imageEncoded}" th:alt="${album.name}" alt="img"/>
                         </div>
                         <div class="col-8">
                             <small th:text="${album.albumYear}"></small>

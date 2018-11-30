@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="row border-bottom p-4">
                         <div class="col-4">
-                            <img src="#" th:src="${song.albumDTO.image}" th:alt="${song.albumDTO.name}" alt="img"/>
+                            <img src="#" th:src="${song.albumDTO.imageEncoded}" th:alt="${song.albumDTO.name}" alt="img"/>
                         </div>
                         <div class="col-8">
                             <h1 th:text="${song.name}"></h1>

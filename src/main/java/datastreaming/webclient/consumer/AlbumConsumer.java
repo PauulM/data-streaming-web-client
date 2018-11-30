@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Component
@@ -24,7 +25,9 @@ public class AlbumConsumer extends AbstractApiConsumer{
         ResponseEntity<AlbumDTO> responseEntity = restTemplate.exchange(
                 baseUri + "/api/albums/" + id,
                 HttpMethod.GET, request, AlbumDTO.class);
-        return responseEntity.getBody();
+        AlbumDTO albumDTO = responseEntity.getBody();
+        albumDTO.setImageEncoded(getAlbumArtworkEncoded(token, id));
+        return albumDTO;
     }
 
     public List<SongDTO> getAlbumSongs(String token, Long albumId){
@@ -33,5 +36,13 @@ public class AlbumConsumer extends AbstractApiConsumer{
                 baseUri + "/api/albums/" + albumId + "/songs",
                 HttpMethod.GET, request, SongDTO[].class);
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+    }
+
+    public String getAlbumArtworkEncoded(String token, Long albumId){
+        HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
+        ResponseEntity<byte[]> responseEntity = restTemplate.exchange(
+                baseUri + "/api/albums/" + albumId + "/artwork",
+                HttpMethod.GET, request, byte[].class);
+        return Base64.getEncoder().encodeToString(responseEntity.getBody());
     }
 }
