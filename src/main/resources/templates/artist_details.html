@@ -14,7 +14,7 @@
                 <div class="card-body row">
                     <div class="col-4" th:switch="${artist.imageEncoded}">
                         <div th:case="${null}">
-                            <img class="img-fluid" src="#" th:src="@{/img/default_album.svg}" alt=""/>
+                            <img class="img-fluid" src="#" th:src="@{/img/default_artist.svg}" alt=""/>
                         </div>
                         <div th:case="*">
                             <img class="img-fluid" src="#"
