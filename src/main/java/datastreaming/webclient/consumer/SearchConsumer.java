@@ -4,11 +4,10 @@ import datastreaming.webclient.dto.api.AlbumDTO;
 import datastreaming.webclient.dto.api.ArtistDTO;
 import datastreaming.webclient.dto.api.SearchDTO;
 import datastreaming.webclient.dto.api.SongDTO;
+import datastreaming.webclient.dto.webinput.SearchLimitOffsetDTO;
 import datastreaming.webclient.misc.ApplicationPropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -47,8 +46,10 @@ public class SearchConsumer extends AbstractApiConsumer {
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
     }
 
-    public SearchDTO searchEverything(String token, String query){
-        HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
+    public SearchDTO searchEverything(String token, String query, SearchLimitOffsetDTO searchLimitOffsetDTO){
+        HttpHeaders httpHeaders = buildBearerTokenAuthorizationHeader(token);
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<?> request = new HttpEntity<>(searchLimitOffsetDTO, httpHeaders);
         ResponseEntity<SearchDTO> responseEntity = restTemplate.exchange(
                 baseUri + "/api/search?query=" + query,
                 HttpMethod.GET, request, SearchDTO.class);
