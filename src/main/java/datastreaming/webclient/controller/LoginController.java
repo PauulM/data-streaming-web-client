@@ -52,6 +52,7 @@ public class LoginController {
     public String logoutPost(RedirectAttributes redirectAttributes, HttpServletRequest request){
         deregisterToken(request.getSession());
         redirectAttributes.addFlashAttribute("message", new Message("Successfully signed out", Message.Type.SUCCESS));
+        request.getSession().invalidate();
         return "redirect:/";
     }
 

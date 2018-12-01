@@ -12,8 +12,14 @@
         <div class="col-6 offset-3">
             <div class="card">
                 <div class="card-body row">
-                    <div class="col-4">
-                        <img src="#" th:src="${artist.image}" th:alt="${artist.name}" alt="img"/>
+                    <div class="col-4" th:switch="${artist.imageEncoded}">
+                        <div th:case="${null}">
+                            <img class="img-fluid" src="#" th:src="@{/img/default_album.svg}" alt=""/>
+                        </div>
+                        <div th:case="*">
+                            <img class="img-fluid" src="#"
+                                 th:src="*{'data:imageEncoded/jpg;base64,' + artist.imageEncoded}" alt=""/>
+                        </div>
                     </div>
                     <div class="col-8">
                         <h1 th:text="${artist.name}"></h1>
@@ -30,8 +36,14 @@
             <a href="#" th:href="@{'/album?id=' + ${album.id}}" class="list-group-item-action">
                 <div class="card list-group-item list-group-item-action">
                     <div class="card-body row">
-                        <div class="col-4">
-                            <img src="#" th:src="${album.image}" th:alt="${album.name}" alt="img"/>
+                        <div class="col-4" th:switch="${album.imageEncoded}">
+                            <div th:case="${null}">
+                                <img class="img-fluid" src="#" th:src="@{/img/default_album.svg}" alt=""/>
+                            </div>
+                            <div th:case="*">
+                                <img class="img-fluid" src="#"
+                                     th:src="*{'data:imageEncoded/jpg;base64,' + album.imageEncoded}" alt=""/>
+                            </div>
                         </div>
                         <div class="col-8">
                             <small th:text="${album.albumYear}"></small>

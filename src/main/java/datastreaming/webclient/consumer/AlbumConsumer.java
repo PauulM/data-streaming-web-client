@@ -43,6 +43,7 @@ public class AlbumConsumer extends AbstractApiConsumer{
         ResponseEntity<byte[]> responseEntity = restTemplate.exchange(
                 baseUri + "/api/albums/" + albumId + "/artwork",
                 HttpMethod.GET, request, byte[].class);
-        return Base64.getEncoder().encodeToString(responseEntity.getBody());
+        return responseEntity.getBody() != null ?
+                Base64.getEncoder().encodeToString(responseEntity.getBody()) : null;
     }
 }

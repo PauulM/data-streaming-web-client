@@ -6,7 +6,7 @@ public class ArtistDTO {
 
     private String name;
 
-    private String image;
+    private String imageEncoded;
 
     public Long getId() {
         return id;
@@ -24,11 +24,11 @@ public class ArtistDTO {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageEncoded() {
+        return imageEncoded;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageEncoded(String imageEncoded) {
+        this.imageEncoded = imageEncoded;
     }
 }

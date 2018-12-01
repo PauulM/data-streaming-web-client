@@ -2,6 +2,8 @@ package datastreaming.webclient.dto.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class AlbumDTO implements Comparable<AlbumDTO>{
 
     private Long id;
@@ -68,5 +70,22 @@ public class AlbumDTO implements Comparable<AlbumDTO>{
 
     public void setImageEncoded(String imageEncoded) {
         this.imageEncoded = imageEncoded;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AlbumDTO albumDTO = (AlbumDTO) o;
+        return Objects.equals(id, albumDTO.id) &&
+                Objects.equals(name, albumDTO.name) &&
+                Objects.equals(albumYear, albumDTO.albumYear) &&
+                Objects.equals(publisher, albumDTO.publisher);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, albumYear, publisher);
     }
 }

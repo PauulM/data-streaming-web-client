@@ -33,8 +33,15 @@
                                     <small class="mb-1" th:text="${song.albumDTO.artistDTO.name}">artist</small>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <img src="#" th:src="${song.albumDTO.imageEncoded}" th:alt="${song.albumDTO.name}" alt="img"/>
+                            <div class="col-4" th:switch="${song.albumDTO.imageEncoded}">
+                                <div th:case="${null}">
+                                    <img class="img-fluid" src="#" th:src="@{/img/default_album.svg}" alt=""/>
+                                </div>
+                                <div th:case="*">
+                                    <img class="img-fluid" src="#"
+                                         th:src="*{'data:imageEncoded/jpg;base64,' + song.albumDTO.imageEncoded}"
+                                         alt=""/>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -63,8 +70,14 @@
                                     <small class="mb-1" th:text="${album.albumYear}">year</small>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <img src="#" th:src="${album.imageEncoded}" th:alt="${album.name}" alt="img"/>
+                            <div class="col-4" th:switch="${album.imageEncoded}">
+                                <div th:case="${null}">
+                                    <img class="img-fluid" src="#" th:src="@{/img/default_album.svg}" alt=""/>
+                                </div>
+                                <div th:case="*">
+                                    <img class="img-fluid" src="#"
+                                         th:src="*{'data:imageEncoded/jpg;base64,' + album.imageEncoded}" alt=""/>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -87,8 +100,14 @@
                                     <h5 class="mb-1" th:text="${artist.name}">artist name</h5>
                                 </div>
                             </div>
-                            <div th:if="${artist.image != null && artist.image.isEmpty()}" class="col-4">
-                                <img src="#" th:src="${artist.image}" th:alt="${artist.name}" alt="img"/>
+                            <div class="col-4" th:switch="${artist.imageEncoded}">
+                                <div th:case="${null}">
+                                    <img class="img-fluid" src="#" th:src="@{/img/default_artist.svg}" alt=""/>
+                                </div>
+                                <div th:case="*">
+                                    <img class="img-fluid" src="#"
+                                         th:src="*{'data:imageEncoded/jpg;base64,' + artist.imageEncoded}" alt=""/>
+                                </div>
                             </div>
                         </div>
                     </a>

@@ -14,8 +14,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row border-bottom p-4">
-                        <div class="col-4">
-                            <img src="#" th:src="${song.albumDTO.imageEncoded}" th:alt="${song.albumDTO.name}" alt="img"/>
+                        <div class="col-4" th:switch="${song.albumDTO.imageEncoded}">
+                            <div th:case="${null}">
+                                <img class="img-fluid" src="#" th:src="@{/img/default_album.svg}" alt=""/>
+                            </div>
+                            <div th:case="*">
+                                <img class="img-fluid" src="#"
+                                     th:src="*{'data:imageEncoded/jpg;base64,' + song.albumDTO.imageEncoded}" alt=""/>
+                            </div>
                         </div>
                         <div class="col-8">
                             <h1 th:text="${song.name}"></h1>
@@ -42,10 +48,11 @@
         var token = /*[[${token}]]*/ '';
         var hls = new Hls({
             debug: true,
-            xhrSetup: (xhr, url) => {
-                xhr.setRequestHeader("Authorization", "Bearer " + token);
-            }
-        });
+            xhrSetup: (xhr, url) = > {
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+    }
+    })
+        ;
         hls.attachMedia(player);
         hls.on(Hls.Events.MEDIA_ATTACHED, function () {
             hls.loadSource(manifestUri);
