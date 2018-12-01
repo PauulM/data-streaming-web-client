@@ -48,11 +48,10 @@
         var token = /*[[${token}]]*/ '';
         var hls = new Hls({
             debug: true,
-            xhrSetup: (xhr, url) = > {
-            xhr.setRequestHeader("Authorization", "Bearer " + token);
-    }
-    })
-        ;
+            xhrSetup: function (xhr, url) {
+                xhr.setRequestHeader("Authorization", "Bearer " + token)
+            }
+        });
         hls.attachMedia(player);
         hls.on(Hls.Events.MEDIA_ATTACHED, function () {
             hls.loadSource(manifestUri);
