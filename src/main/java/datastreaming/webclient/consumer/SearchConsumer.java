@@ -2,6 +2,7 @@ package datastreaming.webclient.consumer;
 
 import datastreaming.webclient.dto.api.AlbumDTO;
 import datastreaming.webclient.dto.api.ArtistDTO;
+import datastreaming.webclient.dto.api.SearchDTO;
 import datastreaming.webclient.dto.api.SongDTO;
 import datastreaming.webclient.misc.ApplicationPropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class SearchConsumer extends AbstractApiConsumer {
         ResponseEntity<SongDTO[]> responseEntity = restTemplate.exchange(
                 baseUri + "/api/songs/search?query=" + query,
                 HttpMethod.GET, request, SongDTO[].class);
-        return multiplyElementsInList(Arrays.asList(responseEntity.getBody()),20);
-        //return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+        //return multiplyElementsInList(Arrays.asList(responseEntity.getBody()),20);
+        return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
     }
 
     public List<AlbumDTO> searchAlbums(String token, String query){
@@ -44,6 +45,14 @@ public class SearchConsumer extends AbstractApiConsumer {
                 baseUri + "/api/artists/search?query=" + query,
                 HttpMethod.GET, request, ArtistDTO[].class);
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+    }
+
+    public SearchDTO searchEverything(String token, String query){
+        HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
+        ResponseEntity<SearchDTO> responseEntity = restTemplate.exchange(
+                baseUri + "/api/search?query=" + query,
+                HttpMethod.GET, request, SearchDTO.class);
+        return responseEntity.getBody();
     }
 
     private List<SongDTO> multiplyElementsInList(List<SongDTO> songs, int times){
