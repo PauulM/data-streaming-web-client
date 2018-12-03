@@ -10,7 +10,7 @@
 <div class="container-fluid row">
     <div class="col-6 offset-3">
         <div class="text-center">
-            <h3>ARTISTS</h3>
+            <h2>ARTISTS</h2>
         </div>
         <div class="list-group">
             <div th:each="artist : ${artists}">
@@ -19,8 +19,8 @@
                        class="list-group-item list-group-item-action align-items-start">
                         <div class="row">
                             <div class="col-8">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1" th:text="${artist.name}">artist name</h5>
+                                <div class="d-flex w-100">
+                                    <h3 class="mb-1" th:text="${artist.name}">artist name</h3>
                                 </div>
                             </div>
                             <div class="col-4" th:switch="${artist.imageEncoded}">
