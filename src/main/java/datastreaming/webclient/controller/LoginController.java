@@ -35,7 +35,7 @@ public class LoginController {
             model.addAttribute("tokenDTO", tokenDTO);
             redirectAttributes.addFlashAttribute("userName", userWebDTO.getUserName());
             registerToken(request.getSession(), userWebDTO.getUserName(), tokenDTO.getToken());
-            return "redirect:/success";
+            return "redirect:/home";
         }
         catch (HttpClientErrorException ex){
             redirectAttributes.addFlashAttribute("message",new Message("Login or password is incorrect", Message.Type.ERROR));
@@ -61,8 +61,4 @@ public class LoginController {
         session.removeAttribute("token");
     }
 
-    @GetMapping("/success")
-    public String homePageGet(){
-        return "success";
-    }
 }

@@ -36,6 +36,14 @@ public class ArtistConsumer extends AbstractApiConsumer {
         //return multiplyElementsInList(Arrays.asList(responseEntity.getBody()),20);
     }
 
+    public List<ArtistDTO> getArtists(String token){
+        HttpEntity<?> request = new HttpEntity<>("", buildBearerTokenAuthorizationHeader(token));
+        ResponseEntity<ArtistDTO[]> responseEntity = restTemplate.exchange(
+                baseUri + "/api/artists/",
+                HttpMethod.GET, request, ArtistDTO[].class);
+        return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+    }
+
     private List<AlbumDTO> multiplyElementsInList(List<AlbumDTO> list, int times){
         List<AlbumDTO> newList = new ArrayList<>();
         for (AlbumDTO el : list){

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <div th:replace="sources :: sources"></div>
+</head>
+<body>
+<div th:replace="navbar :: navbar_auth"></div>
+<div class="container-fluid row">
+    <div class="col-6 offset-3">
+        <div class="text-center">
+            <h3>ARTISTS</h3>
+        </div>
+        <div class="list-group">
+            <div th:each="artist : ${artists}">
+                <div class="p-1">
+                    <a href="#" th:href="@{'/artist?id=' + ${artist.id}}"
+                       class="list-group-item list-group-item-action align-items-start">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1" th:text="${artist.name}">artist name</h5>
+                                </div>
+                            </div>
+                            <div class="col-4" th:switch="${artist.imageEncoded}">
+                                <div th:case="${null}">
+                                    <img class="img-fluid" src="#" th:src="@{/img/default_artist.svg}" alt=""/>
+                                </div>
+                                <div th:case="*">
+                                    <img class="img-fluid" src="#"
+                                         th:src="*{'data:imageEncoded/jpg;base64,' + artist.imageEncoded}" alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
+</body>
+</html>
