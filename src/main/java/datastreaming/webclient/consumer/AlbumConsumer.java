@@ -3,6 +3,7 @@ package datastreaming.webclient.consumer;
 import datastreaming.webclient.dto.api.AlbumDTO;
 import datastreaming.webclient.dto.api.SongDTO;
 import datastreaming.webclient.misc.ApplicationPropertiesUtil;
+import datastreaming.webclient.misc.SongUtil;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,9 @@ public class AlbumConsumer extends AbstractApiConsumer{
         ResponseEntity<SongDTO[]> responseEntity = restTemplate.exchange(
                 baseUri + "/api/albums/" + albumId + "/songs",
                 HttpMethod.GET, request, SongDTO[].class);
-        return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+        List<SongDTO> songs = new ArrayList<>(Arrays.asList(responseEntity.getBody()));
+        SongUtil.convertSecondsToMinsAndSecs(songs);
+        return songs;
     }
 
     public String getAlbumArtworkEncoded(String token, Long albumId){
