@@ -33,7 +33,6 @@ public class ArtistConsumer extends AbstractApiConsumer {
                 baseUri + "/api/artists/" + artistId + "/albums",
                 HttpMethod.GET, request, AlbumDTO[].class);
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
-        //return multiplyElementsInList(Arrays.asList(responseEntity.getBody()),20);
     }
 
     public List<ArtistDTO> getArtists(String token){
@@ -44,13 +43,4 @@ public class ArtistConsumer extends AbstractApiConsumer {
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
     }
 
-    private List<AlbumDTO> multiplyElementsInList(List<AlbumDTO> list, int times){
-        List<AlbumDTO> newList = new ArrayList<>();
-        for (AlbumDTO el : list){
-            for (int i=0;i<times;i++){
-                newList.add(el);
-            }
-        }
-        return newList;
-    }
 }

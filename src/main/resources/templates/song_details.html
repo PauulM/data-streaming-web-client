@@ -47,7 +47,6 @@
         var player = document.getElementById('player');
         var token = /*[[${token}]]*/ '';
         var hls = new Hls({
-            debug: true,
             xhrSetup: function (xhr, url) {
                 xhr.setRequestHeader("Authorization", "Bearer " + token)
             }

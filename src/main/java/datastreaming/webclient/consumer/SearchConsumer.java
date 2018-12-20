@@ -26,7 +26,6 @@ public class SearchConsumer extends AbstractApiConsumer {
         ResponseEntity<SongDTO[]> responseEntity = restTemplate.exchange(
                 baseUri + "/api/songs/search?query=" + query,
                 HttpMethod.GET, request, SongDTO[].class);
-        //return multiplyElementsInList(Arrays.asList(responseEntity.getBody()),20);
         return new ArrayList<>(Arrays.asList(responseEntity.getBody()));
     }
 
@@ -56,13 +55,4 @@ public class SearchConsumer extends AbstractApiConsumer {
         return responseEntity.getBody();
     }
 
-    private List<SongDTO> multiplyElementsInList(List<SongDTO> songs, int times){
-        List<SongDTO> newList = new ArrayList<>();
-        for (SongDTO song : songs){
-            for (int i=0;i<times;i++){
-                newList.add(song);
-            }
-        }
-        return newList;
-    }
 }
